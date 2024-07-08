@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+typst watch src/main.typ target/main.pdf --font-path src/resources/fonts --open
+

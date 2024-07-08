@@ -1,0 +1,4 @@
+# This ignores the contents of this dir, but not the dir itself.
+# This is needed since typst does not create the output dir
+*
+!.gitignore
