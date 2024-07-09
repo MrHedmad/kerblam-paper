@@ -58,8 +58,9 @@ Layout will require manual intervention later on, once the text is all written.
 
 Data analysis is a key step in every scientific experiment.
 In numerical-data-centric fields, input data is processed by one or more programs to produce output data for human inspection, potentially saving intermediate data on the way.
-How such data analysis projects are structured can be significantly different among different researchers, making it harder for the public to inspect and understand them.
+However, how such data analysis projects are structured can be significantly different among different researchers, making it harder for the public to inspect and understand them.
 
+With "Data analysis project structure" we refer to the way in which data analysis projects are organized, including the structure of the folders present on disk, the places where code and workflows are stored in, and how the project is shared with the public.
 With the Open Science movement gaining more and more traction in the recent years @bertramOpenScience2023, there is a need to standardize how day-to-day data analysis projects are structured and carried out.
 Additionally, there is a need to make reproducible pipelines easier to create and to execute by the wider public, for example by leveraging methods such as containerization.
 
@@ -73,17 +74,29 @@ We also present a tool that can be used to work with such a project, leveraging 
 The FAIR principles were published in 2016 @wilkinsonFAIRGuidingPrinciples2016, and they provide a guideline for making data Findable, Accessible, Interoperable, and Reusable for the benefit of all.
 These principles were adapted in other contexts, such as software @barkerIntroducingFAIRPrinciples2022.
 
-With "Data analysis project structure" we refer to the way in which data analysis projects are organized, including the structure of the folders present on disk, the places where code and workflows are stored in, and how the project is shared with the public.
 We believe that it is possible to follow FAIR principles when structuring data analysis projects, making them more transparent and reusable by other researchers and the public.
 This could ultimately benefit the scientific community by making other's work easier to understand and reproduce, for example during the peer review process.
 
-The structure of this paper is as follows: 
+The structure of this paper is as follows.
+First, we present the structure of many data science / data analysis project templates available online.
+Then, we outline best practices and cosiderations to take into account when thinking about structuring data analysis projects.
+Following these principles, we propose a simple, lightweight and extensible project structure that fits many needs and is in line with the projects already present in the ecosystem.
+Finally, we present Kerblam!, a tool to help work in projects with this standard structure, taking care of common tasks like data retrieval and cleanup, as well as workflow management.
 
 = Materials and Methods
 
-#lorem(100)
+In order to fetch the structure of common data analysis projects, we searched GitHub for the keywords 'cookiecutter' and 'data'.
+The Python `cookiecutter` package allows users to create ("cut") new projects based on project templates.
+We downloaded the top 50 such repositories sorted by GitHub stars and cut them with the `cookiecutte` python package into projects.
+Of these fifty repositories, 31 could ultimately be successfully cut and were therefore considered.
+We then listed all files and folders in the resulting projects, and compiled them into a frequency graph.
+The code for this analysis is available at #link("https://github.com/MrHedmad/ds_project_structure")[MrHedmad/ds_project_structure].
+
+Kerblam! is a command line tool written in Rust available on Github at #link("https://github.com/MrHedmad/kerblam")[MrHedmad/kerblam], online at #link("https://kerblam.dev/")[kerblam.dev] and on Zenodo at #link("https://doi.org/10.5281/zenodo.10664806")[10.5281/zenodo.10664806].
 
 = Results
+The issue of structuring projects is one universally shared by anyone performing data analysis.
+This results in a plethora of different tools, folder hirerachies,
 
 #lorem(100)
 
