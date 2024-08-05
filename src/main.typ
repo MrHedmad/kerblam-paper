@@ -1,4 +1,5 @@
-#import "template.typ": *
+#import "template.typ": *;
+
 #show: project.with(
   title: "Structuring data analysis projects in the Open Science era with Kerblam!",
   authors: (
@@ -167,47 +168,77 @@ We highlighted a few in this section, together with relevant templates.
 
 === The Turing Way
 The Turing Way @communityTuringWayHandbook2022 is a widely popular resource to address many aspects of project and data management.
-The handbook contains a section with a linked 
+The handbook contains a section with a linked
 */
 
 = Discussion
-== Considerations on project structure
 
-The high presence of the `README.md` file and the `LICENSE` file is not at all surprising.
-The `README.md` file is almost universally found in most projects, describing the project itself,
-while the `LICENSE` file is essential for collaborating with the community in the open source paradigm.
+Project structure can be, by its nature, a matter of personal preference.
+However, both the epistemic need to share one's own work with others and technical requirements of research tools causes the adoption of community standards, either from choice (for the former) or imposition (for the latter).
+
+This trend can be seen in @fig:frequency_graph.
+For instance, the high presence of the `README.md` file and the `LICENSE` file is a community standard that is generally shared by the majority of software developers, users and researchers alike.
+This adoption is purely due to epistemic needs: specifically the need to share the description of the work with others in an obvious ("please read me"), logical (in the topmost layer of the project layout) and predictable (i.e. used by the wider community) way.
+
+Borrowing a term from genetics, the `README` file can be thought to be a "housekeeping" file: without it, the usefulness of a project is severely limited.
+
+Which other files may be deemed to be housekeeping?
+A possible candidate is the `LICENSE` file.
+It is essential for collaborating with the community in the open source paradigm, and thus commonly found in many software packages.
+The concession for code reuse is also essential in data analysis projects, both to allow reproducers to replay the initial work and for other researchers to build on top of previous knowledge.
+
 It is interesting, however, that the `LICENSE` file is specified in the *template* of a project, not in the project itself.
 This could be either due to apathy toward licensing issues leading to picking a "default license" without particular considerations, or a general feeling in individuals that one particular license is fit for their own projects in a transversal way.
 
+A potentially new housekeeping file that is however not yet commonly found is the `CITATION.cff` file.
+This file contains machine-readable citation metadata, which could be used by both human and machine users to obtain such information, potentially automatically.
+
 The relatively low prevalence of the R programming language could be due to biases introduced by the search queries, or to the overwhelming popularity of Python project templates, also in the light of the fact that the cookiecutter utility is written in Python.
 
-The low consensus between different project templates reflects the high fragmentation of tooling, methodology and conventions used in the ecosystem.
-
-This broad overview over project templates allows us to make some observations:
-- `README` files are overwhelmingly common;
-- `LICENSE` files may often be standardized;
-- Most online templates prescribe the usage of Python, with some prescribing R;
-- Some project templates predict the usage of containerization technology, like Docker;
-- The `src`-based project structure is very common, as is the similar Python-package based one (represented by the "project" directory);
-- Data may be found either in the `src` or in a standalone folder, an is commonly divided into different folders for different data types;
-- The usage of at least some workflow managers (like `make`) is present;
-- There is a need to save environment information like required packages;
-
+== Designing a data analysis project template
 These observations can all be taken in consideration when designing a more broadly applicable project template that may be used in a variety of contexts.
 To this end, it is helpful to conceptualize some core guiding principles that must be followed by all data analysis projects, in particular under the Open Science paradigm.
 
-== Designing a data analysis project template
 As data analysis projects often involve writing new software, a data analysis project structure requires support for both *data analysis* proper and *software development*.
 
 The methods of software development fall outside the scope of this work, but some concepts are useful in the context of data analysis, particularly for ad-hoc data analysis.
 For instance, many programming languages require specific folder layouts in order to create self-contained, distributed software.
-Take, for instance, the Python programming language.
-To create a Python package, a specific project layout has to be followed @PackagingPythonProjects.
+Take, for instance, the Python programming language: to create a Python package, a specific project layout has to be followed @PackagingPythonProjects.
 This is visible also in @fig:frequency_graph, with the presence of the "project" folder, and many files specific to Python packages, crucially, in the locations required by Python build backends.
 Something similar occurs for many other programming languages, such as R @PackageStructureState, Rust @CreatingNewPackage and many others.
 
 However, a researcher might not want to create self-contained, distributed software.
 Languages like Python and R can interpret and execute single-file scripts which achieve some goal.
+This exacerbates the fragmentation of project structures, since it adds a lot of flexibility during the development process.
+
+=== 1. Use a version control system
+
+At its core, software in general, and data analysis software specifically, is a collection of text files.
+While working on code, it is important to record the differences between the different versions of these files.
+This is very useful, especially during the research process, to "retrace our steps" or to attempt new methodologies without the fear of losing any previous work.
+Such records are also useful as provenance information, and potentially as proof of authorship similarly to what a laboratory notebook does for a "wet-lab" experimental biologist.
+
+There is consolidated software to act as a version control system.
+The overwhelming majority of projects use `git` as a version control system, although others exist.
+Platforms that integrate `git` such as GitHub (#link("https://github.com")[github.com]) and GitLab (#link("https://gitlab.com")[gitlab.com]) and increasingly used for data analysis both as a collaboration tool during the project and a sharing platform afterwards.
+
+The first principle is therefore: use a version control system, such as `git`.
+
+From this principle a few practical observations stem:
+- Version control good practices, such as atomic commits, meaningful commit messages, and more;
+- Version control discourages the upload of very large (binary) files, so input and output data cannot be efficiently shared through such a system;
+- Code collaboration, and indeed more generally collaboration techniques such as "Github Flow" or "trunk based development" can be useful and indeed can promote a more efficient workflow method in data analysis disciplines such as bioinformatics.
+- The core unit of our project should be a code repository.
+
+The usage of a version control system has implications also for FAIR-ness.
+Leveraging remote platforms can be fundamental for both Findability and Accessibility.
+Integrations of platforms like Github with archives like Zenodo, for instance, allow developers to easily archive for long-term preservation their data analysis code, promoting Accessibility, Findability and Reusability.
+
+=== 2. Documentation is essential
+
+=== 3. Be logical, obvious and predictable
+
+=== 4. Promote (easy) reproducibility
 
 /// -----------------------------------------------
 
