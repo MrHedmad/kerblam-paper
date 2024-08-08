@@ -1,4 +1,5 @@
 #import "template.typ": *;
+#import "@preview/subpar:0.1.1";
 
 #show: project.with(
   title: "Structuring data analysis projects in the Open Science era with Kerblam!",
@@ -212,8 +213,8 @@ Languages like Python and R can interpret and execute single-file scripts which 
 This exacerbates the fragmentation of project structures, since it adds a lot of flexibility during the development process.
 
 === 1. Use a version control system
-
-At its core, software in general, and data analysis software specifically, is a collection of text files.
+At its core, software is a collection of text files.
+This includes data analysis software.
 While working on code, it is important to record the differences between the different versions of these files.
 This is very useful, especially during the research process, to "retrace our steps" or to attempt new methodologies without the fear of losing any previous work.
 Such records are also useful as provenance information, and potentially as proof of authorship similarly to what a laboratory notebook does for a "wet-lab" experimental biologist.
@@ -227,18 +228,183 @@ The first principle is therefore: use a version control system, such as `git`.
 From this principle a few practical observations stem:
 - Version control good practices, such as atomic commits, meaningful commit messages, and more;
 - Version control discourages the upload of very large (binary) files, so input and output data cannot be efficiently shared through such a system;
-- Code collaboration, and indeed more generally collaboration techniques such as "Github Flow" or "trunk based development" can be useful and indeed can promote a more efficient workflow method in data analysis disciplines such as bioinformatics.
-- The core unit of our project should be a code repository.
+- Code collaboration, and indeed more generally collaboration techniques such as "Github Flow" or "trunk based development" @appletonStreamedLinesBranching1998 @GitHubFlow can be useful and indeed can promote a more efficient workflow method in data analysis disciplines such as bioinformatics.
+- The core unit of a project should be a code repository.
 
 The usage of a version control system has implications also for FAIR-ness.
 Leveraging remote platforms can be fundamental for both Findability and Accessibility.
 Integrations of platforms like Github with archives like Zenodo, for instance, allow developers to easily archive for long-term preservation their data analysis code, promoting Accessibility, Findability and Reusability.
 
 === 2. Documentation is essential
+When working on a data analysis project, documentation is important for both the experimenter themselves and potentially external users.
+In this context, we use the term "user" to mean any external entity that might access the project for any reason, such as reviewers during the publication process, other researchers, members of the public or users *proper* wishing to reuse the software or the results of the analysis.
+
+Trough ideal documentation, the rationale, process and potentially the result of the analysis is presented to the user, together with practical steps on how to *actually* reproduce the work.
+As with all other aspects of data analysis, documentation takes many different forms, and is the most difficult thing to standardize.
+Documentation is written by humans for human consumption.
+Therefore, documentation is allowed high flexibility in structure, content, form and delivery method.
+
+Some guidelines on how to write effective documentation can however still be drawn, oftentimes from best practices in the much wider world of Open Source software.
+
+We have already highlighted the fundamental role of the `README` file and its very wide adoption.
+The `README` file contains high-level information about the project.
+This file is usually the first, and perhaps only, documentation that all users encounter and read.
+It is therefore essential that core aspects of the project are delivered trough the `README` file, such as:
+- The aim of the project, in clear, accessible language;
+- The methods used to achieve such aim (and/or a link to further reading material);
+- A guide on how to run the analysis on the user's machine, potentially including information on hardware requirements, software requirements, container deployment methods, and every information a human reproducer might need to execute the analysis.
+- In a open-science mindset, including information on how to collaborate on the project and contact information of the authors is also desirable.
+Other aspects of the project, such as a list of contributors, might also be included in the `README` file.
+The `README` file may also be named `DESCRIPTION`, although `README` is a much more widely accepted standard.
+
+Additional documentation can be added to the project in many forms (also see @fig:frequency_graph).
+A common documentation file is the `CONTRIBUTING` file, with information on how to contribute to the project, on how authorship of eventual publications will be assigned, and other community-level information.
+The `CODE_OF_CONDUCT` file contains guidelines and policy on how the project is managed, the expected conduct of project members, and potentially how arising issues between project members are dealt with.
+Such a file can be important to projects either open to collaboration from the public or for large, consortium-level projects are run.
+
+Another important documentation file in the Open Source community is the `CHANGELOG` file.
+It contains information about how the project changed over time and its salient milestones.
+For data analysis, it could be used to inform collaborators of important changes in the codebase, methodology or any other news that might be important to announce and record.
+Additionally, together with the commit history, `CHANGELOG` files can be useful to track the provenance of the analysis, as we have already mentioned.
+
+A common place to store documentation is the top-level of the project repository, but some templates use the `docs` folder, also coming from guidelines used in the Python community (to use tools such as Sphinx @SphinxSphinxDocumentation).
 
 === 3. Be logical, obvious and predictable
+When a project layout is logical, obvious and predictable, a human user can very easily and quickly understand it and interact with it.
+
+To be *logical*, a layout should categorize files based on their content, and logically arrange them.
+To be *obvious*, this categorization should make sense at a glance, even to non-experts.
+For instance, a folder named "scripts" should contain scripts (to be obvious) and only scripts (to be logical).
+A folder named "configuration" should similarly contain configuration files and configuration files only.
+To be *predictable*, a layout should adhere to community standards, so that it "looks" similar to other projects.
+
+This creates minimal friction when a user first encounters the project and desires to interact with it.
+
+This principle is present also in other aspects of project structure other than layout.
+For instance, the structure of documentation can also benefit from the same principles, but in a different context: logically arranged, obvious in structure, and similar to other projects.
 
 === 4. Promote (easy) reproducibility
+Scientific Reproducibility has been and still is a central issue, particularly in the field of biomedical research @erringtonChallengesAssessingReplicability2021 @ioannidisWhyMostPublished2005a.
+Scientific software developers hold the crucial responsibility towards the scientific community of creating reproducible data analysis software.
+
+"Reproducibility" can be understood as the ability of a third-party user to understand the research issue investigated by the project, how it was addressed, and practically execute the analysis proper again to obtain a hopefully similar and ideally identical result as the original author(s).
+
+In the modern era, scientists are equipped with powerful tools to enable reproducibility, such as containerization, virtualization, etc.
+While a discussion on how reproducibility can be achieved eludes the scope of this article, the project layout can be a promoter of reproducibility, especially when all other principles exposed here are respected.
+
+Including obvious and easily implementable reproducibility methods right in the layout of the project can be helpful towards increasing adoption of these practices.
+
+Workflow managers, like Nextflow @ditommasoNextflowEnablesReproducible2017, Snakemake @molderSustainableDataAnalysis2021 and the Common Workflow Language @crusoeMethodsIncludedStandardizing2022 are key tools to enable reproducibility.
+They allow a researcher to describe in detail the workflow used, from input files to final output, offloading the burden of execution to the workflow manager.
+This allows greater transparency in the methodology used, and even make reproducibility a possibility in more complex data analysis scenarios.
+
+Some workflow managers even allow the tracking and storage of provenance information, allowing even more advanced attribution, accountability and reproducibility.
+
+== Kerblam!
+We have designed a very simple but powerful and flexible project layout together with a project management tool aiming at upholding the principles outlined in the previous section.
+We named this tool "Kerblam!".
+
+#subpar.super(
+  {
+  grid(
+    [#figure(image("resources/images/layout.svg"), caption: []) <fig:kerblam:layout>],
+    [#figure(image("resources/images/cow.svg"), caption: []) <fig:kerblam:datatypes>],
+    columns: (1fr, 1fr)
+  )
+    [#figure(image("resources/images/flow.svg"), caption: []) <fig:kerblam:flow>]
+  v(3mm)
+  },
+  caption: [Salient concepts implemented by Kerblam!
+    (a): Basic skeleton of the proposed folder layout for a generic data analysis project associated with relevant Kerblam! commands.
+    Folders are depicted in blue, while files are depicted in red.
+    (b): Data is qualitatively divided into input, output and temporary data. Input data can be further divided in input data remotely available (i.e. downloadable) and local-only data. The latter is "precious", as in, it cannot be easily recreated. Other types of data are "fragile", as they may be created again _on the fly_.
+    (c): Overview of a generic Kerblam! workflow.
+  ],
+  label: <fig:kerblam>
+)
+
+Kerblam! is a command-line tool written in Rust that incentivizes researchers to use a common, standardized filesystem structure, adopt containerization technologies to perform data analysis, leverage remote file storage when possible, and package and make container images publicly available to re-run pipelines for reproducibility purposes (see @fig:kerblam:flow).
+These aims try to uphold and promote the principles described above.
+
+The skeleton of the project layout implemented by Kerblam! can be seen in @fig:kerblam:layout.
+The `kerblam.toml` file contains configuration information for Kerblam! and marks the folder as a Kerblam-managed project.
+Kerblam! provides a number of utility features _out of the box_ on projects that adapt to the layout presented in @fig:kerblam:layout or on any project provided proper configuration.
+
+=== Data management
+Kerblam! can be used to manage a project's data.
+Kerblam! automatically distinguishes between input, output and intermediate data, based on which folder the data files are saved in:
+the `data` folder contains intermediate data produced during the execution of the workflows; the `data/in` contains input data, and similarly `data/out` contains output data.
+Furthermore, the user can define in the `kerblam.toml` configuration which input data files can be fetched remotely, and from which endpoint.
+This allows Kerblam! to both fetch these files upon request (`kerblam fetch`) and to distinguish between remotely available input files and local-only files.
+Local-only files are deemed "precious", as they cannot be easily recreated.
+All other data files are "fragile", as they can be deleted without repercussion to save disk space (@fig:kerblam:datatypes).
+
+These distinctions between data types enable further functions of Kerblam!.
+`kerblam data` shows the number and size of files of all types, to quickly check how much disk space is being used by the project.
+Fragile data can be deleted to save disk space with `kerblam data clean` and precious input data can be exported easily with `kerblam data pack`. `kerblam data pack` can also be used to export output data quickly to, for example, colleagues.
+
+Allowing Kerblam! to manage the project's data can offload several chores usually done manually by the experimenter.
+
+=== Workflow management
+Kerblam! can manage multiple workflows written for any workflow manager.
+At its core, Kerblam! can spawn shell subprocesses that then execute the particular workflow manager, potentially one configured by the user.
+However, Kerblam! works before and after the workflow manager to aid in several tasks.
+
+Firstly, Kerblam! can manage workflows in the `src/workflows` folder *as if* they were written in the root of the project.
+It achieves this by moving the workflow files from said folder to the root of the repository _just before_ execution.
+
+Secondly, it allows the concept of _input data profiles_.
+Data profiles are best explained through an example.
+Imagine an input file, `input.csv`, containing some data to be analysed.
+The experimenter may perhaps wish to test the workflows that they have written with a similar, but - say - smaller `test_input.csv`.
+Kerblam! allows the hot-swapping of these files just before execution of the workflow manager trough profiles.
+By configuring them in the `kerblam.toml` file, the experimenter can execute a workflow manager (with `kerblam run`), specifying a profile.
+Kerblam! will then swap these two files just before and just after the execution of the workflow to seamlessly use exactly the same workflow but with different input data.
+
+Kerblam! supports _out of the box_ GNU `make` as its workflow manager of choice.
+Indeed, makefiles can directly be ran trough Kerblam! with no further configuration by the user.
+
+=== Containerization support
+Containers can be managed directly by Kerblam!.
+By writing container recipes in `src/dockerfiles`, Kerblam! can automatically execute workflow managers inside the containers, seamlessly mounting data paths and performing other housekeeping tasks before the container proper can be executed.
+This allows for very easy containerization of workflow managers that do not support it themselves, or even containerization of shell scripts, be they used for writing the workflow proper.
+
+With these capabilities, Kerblam! promotes reproducibility and allows even inexperienced users to perform even the simplest analyses in a reproducible way.
+
+=== Pipeline export
+Workflows managed by Kerblam! with an available container can be automatically exported in a reproducible package through `kerblam package`.
+This creates a preconfigured container image ready to be uploaded to a container registry of choice together with a compressed tarball containing information on how to (automatically) replay the input analysis: the "replay package".
+
+The process automatically strips all unneeded project files, leading to small container images.
+
+The replay package can be inspected manually by a potential examiner, and either re-run manually or trough the convenience function `kerblam replay` which recreates the same original project layout, fetches the input container and runs the packaged workflow.
+
+=== Availability
+Kerblam! is a Free and Open Source Software, available on GitHub at #link("https://github.com/MrHedmad/kerblam")[MrHedmad/kerblam].
+Pre-compiled binaries as well as installers are available for machines running Mac-OS and Linux.
+The full documentation to Kerblam! is available at #link("https://kerblam.dev/")[kerblam.dev].
+Active support for Kerblam! and its future development are guaranteed for the foreseeable future.
+
+= Conclusions
+Structuring data analysis projects is a personal matter, heavily dependent on the preference of the individual(s) who run the analysis.
+However, best practices arise and can be individuated in this fragmented landscape.
+
+With this work, we aimed at providing such guidelines, and included a robust tool to leverage the regularity of such standardized layout.
+As the proposed layout is, for all intents and purposes, largely arbitrary, Kerblam! can be configured to work with any layout.
+
+Through these and potentially future standardization efforts, tools such as containerization and workflow managers can become more mainstream and even routine, leading to an overall more mature and scientifically rigorous way to analyse data of any kind.
+
+/// -----------------------------------------------
+
+= Code and Data availability
+The raw data fetched by the analysis of project templates (e.g. list of fetched repositories, detected frequencies, etc...) are available on Zenodo at the following DOI #todo[gimme gimme gimme a link after midnight!].
+Kerblam! replay packages for the analysis pipeline are available on Zenodo at the following DOI #todo[won't somebody help me come and dig up a link?].
+
+Kerblam! is available on GitHub at #link("https://github.com/MrHedmad/kerblam") and archived at every release in Zenodo at DOI #link("https://zenodo.org/doi/10.5281/zenodo.10664806").
+Its documentation is available at #link("https://kerblam.dev/").
+
+= Author's contributions
+Conceptualization: L.V., L.M. and F.A.R., Software: L.V., Methodology: L.V. and F.A.R, Resources and Funding Acquisition: L.M., Writing - Original Draft: L.V., L.M. and F.A.R., Supervision: L.M. and F.A.R.
 
 /// -----------------------------------------------
 
