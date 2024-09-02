@@ -30,12 +30,12 @@
     ),
   ),
   affiliations: (
-    (id: "*", value: "Department of Science and Literature, University of Life, Earth, Milky Way"),
+    (id: "*", value: "Department of Life Sciences an Systems Biology, University of Turin, Turin, Italy"),
   ),
   // Insert your abstract after the colon, wrapped in brackets.
   // Example: `abstract: [This is my abstract...]`
   abstract: [
-    #lorem(50)
+    Structuring data analysis projects, that is, the layout of files and folders used while analysing data using existing tools and novel code, largely follows personal preference. In this work, we look at the structure of several data analysis project templates and find little structural overlap. We highlight the parts that are similar between them, and propose guiding principles to keep in mind when one wishes to create a new data analysis project. Finally, we present Kerblam!, a project management tool that can expedite project data management, execution of workflow managers and sharing of the resulting workflows and analysis outputs. We hope that by following these principles and using Kerblam!, the landscape of data analysis projects can become more transparent, understandable and ultimately useful to the wider community.
   ],
   // Disable this once you are done
   work_in_progress: true
