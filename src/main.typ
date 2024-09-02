@@ -71,7 +71,7 @@ Additionally, there is a need to make reproducible pipelines easier to create an
 
 New tools and technologies offer new opportunities to make the data analysis process increasingly transparent and reproducible. At the same time, usage of these tools takes time and effort, as well as expertise and sensibility to the issue of standardization and reproducibility by the experimenter.
 
-In this paper, we inspect the structure of data analysis projects that are currently used, and propose a simple yet flexible template project that can be adapted to many contexts while providing a certain level of standardization.
+In this work, we inspect the structure of data analysis projects that are currently used, and propose a simple yet flexible template project that can be adapted to many contexts while providing a certain level of standardization.
 We also present a tool that can be used to work within such a project structure, leveraging it to provide a number of useful features.
 We named this tool "Kerblam!".
 
@@ -83,7 +83,7 @@ These principles were adapted in other contexts, such as software @barkerIntrodu
 We believe that it is possible to follow FAIR principles when structuring data analysis projects, making them more transparent and reusable by other researchers and the public.
 This could ultimately benefit the scientific community by making other's work easier to understand and reproduce, for example during the peer review process.
 
-The structure of this paper is as follows.
+The layout of this work is as follows.
 First, we present the structure of many data science / data analysis project templates available online.
 Then, we outline best practices and cosiderations to take into account when thinking about structuring data analysis projects.
 Following these principles, we propose a simple, lightweight and extensible project structure that fits many needs and is in line with the projects already present in the ecosystem.
@@ -99,10 +99,9 @@ We downloaded the top 50 such repositories from each search sorted by GitHub sta
 For each downloaded project, we either cut them with the `cookiecutter` python package or used them as-is (for non-cookiecutter templates).
 Of these $100$ repositories, $87$ could ultimately be successfully cut and parsed, and were therefore considered.
 We then listed all files and folders in the resulting projects, and compiled them into a frequency graph.
-The code for this analysis is available at #link("https://github.com/MrHedmad/ds_project_structure")[MrHedmad/ds_project_structure].
 
-Some housekeeping files were stripped from the final search results due to not being relevant to the project as a whole.
-For example, `.gitkeep` files, which are commonly used to commit empty directories to version control, were excluded from the final figures. Finally, files present in less that two templates were discarded and therefore not shown in the final visualization.
+Some housekeeping files (like the `.git` directory and all its contents) were stripped from the final search results due to not being relevant to the project as a whole.
+For example, `.gitkeep` files, which are commonly used to commit empty directories to version control, were excluded from the final figures. Finally, files present in strictly less than three templates were discarded and therefore not shown in the final visualization.
 
 The analysis was performed with the latest commits of all the considered repositories as of the 12th of July, 2024.
 The only exception was the "drivendataorg/cookiecutter-data-science" repository, where we fetched version `1.0` due to non-standard parsing requirements of the latest commit.
@@ -116,7 +115,7 @@ Support for Windows machines is untested at the time of writing.
 
 #pagebreak(weak: true)
 = Results
-== Landscape of data analysis project templates
+== The landscape of data analysis project templates
 The issue of structuring projects is one universally shared by anyone performing data analysis.
 This results in a plethora of different tools, folder hierarchies, accepted practices and customs.
 
@@ -153,12 +152,13 @@ Other common folders present in the `src` directory are also the ones promoted b
 The prevalence of these sub-folders is however lower that the frequency of `src` itself, signifying that the `src` folder is not uniquely due to that specific template.
 
 Docker-related files are present, mostly in the top-level of the project: `Dockerfile` ($ 5/87 tilde.eq 0.05$), `.dockerignore` ($4/87 tilde.eq 0.04$) and `docker-compose.yml` or `yaml` ($(6 + 1)/87 tilde.eq 0.08$).
-Docker related files and folders are also present with sub-threshold frequency in many other forms, often as directories with multiple Dockerfiles in different folders (see @ax:freq_table).
+Docker related files and folders are also present with sub-threshold frequency in many other forms, often as directories with multiple Dockerfiles in different folders.
 The presence of the `docker-compose.yml` file and the docker sub-directories might reflect the need to manage multiple execution environments (that work together in the case of Docker compose) troughout the analysis.
 
 The sparse usage of many tools can be appreciated by the amount of unique files and folders across all templates.
 Out of $4195$ different files and directories considered by this approach, the overwhelming majority, $3908$, or $93.15%$ is present only in one template. Looking at only directories, $783$ are unique over $864$ total, or $90.62%$.
-This figure might be inflated due to the presence of some compiled libraries, files and Git objects that are included in the analysis.
+This figure might be inflated due to the presence of some compiled libraries, files and Git objects that are included in the analysis and not correctly removed by our filtering.
+However, we argue that this overwhelmingly high uniqueness would not be significantly effected by manual filtering.
 
 // Are we coming in too strong?
 
@@ -175,11 +175,13 @@ The handbook contains a section with a linked
 = Discussion
 
 Project structure can be, by its nature, a matter of personal preference.
-However, both the epistemic need to share one's own work with others and technical requirements of research tools causes the adoption of community standards, either from choice (for the former) or imposition (for the latter).
+The most interesting result from our analysis is the tiny overlap between templates.
+The ability to plot all files found in at least three templates (in @fig:frequency_graph) says something about the templates overall: while overlap between the single layouts and tools used is litte, the core structure of the repositories - and only that portion - tends to be similar.
+This is potentially due to both the epistemic need to share one's own work with others and technical requirements of research tools, which causes the adoption of community standards either from choice (for the former) or imposition (for the latter).
 
 This trend can be seen in @fig:frequency_graph.
-For instance, the high presence of the `README.md` file and the `LICENSE` file is a community standard that is generally shared by the majority of software developers, users and researchers alike.
-This adoption is purely due to epistemic needs: specifically the need to share the description of the work with others in an obvious ("please read me"), logical (in the topmost layer of the project layout) and predictable (i.e. used by the wider community) way.
+For instance, the high presence of the `README.md` file and the `LICENSE` file is a community standard that is broadly shared by the majority of software developers, users and researchers alike.
+This adoption is purely due to practical reasons: specifically the need to share the description of the work with others in an obvious ("please read me"), logical (in the topmost layer of the project layout) and predictable (i.e. used by the wider community) way.
 
 Borrowing a term from genetics, the `README` file can be thought to be a "housekeeping" file: without it, the usefulness of a project is severely limited.
 
@@ -187,8 +189,7 @@ Which other files may be deemed to be housekeeping?
 A possible candidate is the `LICENSE` file.
 It is essential for collaborating with the community in the open source paradigm, and thus commonly found in many software packages.
 The concession for code reuse is also essential in data analysis projects, both to allow reproducers to replay the initial work and for other researchers to build on top of previous knowledge.
-
-It is interesting, however, that the `LICENSE` file is specified in the *template* of a project, not in the project itself.
+The common presence of the `LICENSE` file in the _template_ of a project is interesting.
 This could be either due to apathy toward licensing issues leading to picking a "default license" without particular considerations, or a general feeling in individuals that one particular license is fit for their own projects in a transversal way.
 
 A potentially new housekeeping file that is however not yet commonly found is the `CITATION.cff` file.
@@ -197,7 +198,7 @@ This file contains machine-readable citation metadata, which could be used by bo
 The relatively low prevalence of the R programming language could be due to biases introduced by the search queries, or to the overwhelming popularity of Python project templates, also in the light of the fact that the cookiecutter utility is written in Python.
 
 == Designing a data analysis project template
-These observations can all be taken in consideration when designing a more broadly applicable project template that may be used in a variety of contexts.
+The observations made above can all be taken in consideration when designing a more broadly applicable project template that may be used in a variety of contexts.
 To this end, it is helpful to conceptualize some core guiding principles that must be followed by all data analysis projects, in particular under the Open Science paradigm.
 
 As data analysis projects often involve writing new software, a data analysis project structure requires support for both *data analysis* proper and *software development*.
@@ -206,30 +207,35 @@ The methods of software development fall outside the scope of this work, but som
 For instance, many programming languages require specific folder layouts in order to create self-contained, distributed software.
 Take, for instance, the Python programming language: to create a Python package, a specific project layout has to be followed @PackagingPythonProjects.
 This is visible also in @fig:frequency_graph, with the presence of the "project" folder, and many files specific to Python packages, crucially, in the locations required by Python build backends.
-Something similar occurs for many other programming languages, such as R @PackageStructureState, Rust @CreatingNewPackage and many others.
+Something similar occurs for many programming languages, such as R @PackageStructureState and Rust @CreatingNewPackage, among others.
 
 However, a researcher might not want to create self-contained, distributed software.
-Languages like Python and R can interpret and execute single-file scripts which achieve some goal.
-This exacerbates the fragmentation of project structures, since it adds a lot of flexibility during the development process.
+Languages like Python and R can interpret and execute single-file scripts which achieve some goal, i.e. "scripting".
+As scripting is so fast, convenient and easy to do, it is the most common method of doing data analysis.
+Scripting exacerbates the fragmentation of project structures, since it adds a lot of flexibility during the development process.
+In particular, the environment of execution now becomes much more relevant: which packages are installed and at which versions, the order that the scripts were read and executed, sometimes, even the order of _which lines_ in the scripts are (manually) run become important to the success of the overall analysis.
+
+This increased flexibility is obviously useful for the research process, which requires a lot of flexibility and the ability to change quickly in order to adapt to new findings, especially during exploratory research.
+
+The principles presented here aim to retain this essential flexibility but at the same time push for increased standardization of methods, avoiding the most common and dangerous pitfalls one can encounter during the process of data analysis.
 
 === 1. Use a version control system
-At its core, software is a collection of text files.
-This includes data analysis software.
+At its core, software is a collection of text files, and this includes data analysis software.
 While working on code, it is important to record the differences between the different versions of these files.
 This is very useful, especially during the research process, to "retrace our steps" or to attempt new methodologies without the fear of losing any previous work.
-Such records are also useful as provenance information, and potentially as proof of authorship similarly to what a laboratory notebook does for a "wet-lab" experimental biologist.
+Such records are also useful as provenance information, and potentially as proof of authorship similarly to what a laboratory notebook does for a "wet-lab" experimental researcher.
 
-There is consolidated software to act as a version control system.
-The overwhelming majority of projects use `git` as a version control system, although others exist.
+There is consolidated software that can be used as a version control system.
+The overwhelming majority of projects use `git` to this aim, although others exist.
 Platforms that integrate `git` such as GitHub (#link("https://github.com")[github.com]) and GitLab (#link("https://gitlab.com")[gitlab.com]) and increasingly used for data analysis both as a collaboration tool during the project and a sharing platform afterwards.
 
-The first principle is therefore: use a version control system, such as `git`.
+The first principle is therefore this: use a version control system, such as `git`.
 
-From this principle a few practical observations stem:
+A few practical observations stem from this principle:
 - Version control good practices, such as atomic commits, meaningful commit messages, and more;
 - Version control discourages the upload of very large (binary) files, so input and output data cannot be efficiently shared through such a system;
 - Code collaboration, and indeed more generally collaboration techniques such as "Github Flow" or "trunk based development" @appletonStreamedLinesBranching1998 @GitHubFlow can be useful and indeed can promote a more efficient workflow method in data analysis disciplines such as bioinformatics.
-- The core unit of a project should be a code repository.
+- The core unit of a project should be a code repository, containing everything related to that project.
 
 The usage of a version control system has implications also for FAIR-ness.
 Leveraging remote platforms can be fundamental for both Findability and Accessibility.
@@ -239,12 +245,11 @@ Integrations of platforms like Github with archives like Zenodo, for instance, a
 When working on a data analysis project, documentation is important for both the experimenter themselves and potentially external users.
 In this context, we use the term "user" to mean any external entity that might access the project for any reason, such as reviewers during the publication process, other researchers, members of the public or users *proper* wishing to reuse the software or the results of the analysis.
 
-Trough ideal documentation, the rationale, process and potentially the result of the analysis is presented to the user, together with practical steps on how to *actually* reproduce the work.
-As with all other aspects of data analysis, documentation takes many different forms, and is the most difficult thing to standardize.
-Documentation is written by humans for human consumption.
-Therefore, documentation is allowed high flexibility in structure, content, form and delivery method.
+Through ideal documentation, the rationale, process and potentially the result of the analysis is presented to the user, together with practical steps on how to *actually* reproduce the work.
+As with all other aspects of data analysis, documentation takes many different forms, but is the most difficult thing to standardize for one simple reason: documentation is written by humans for human consumption.
+Documentation is therefore allowed high flexibility in structure, content, form and delivery method.
 
-Some guidelines on how to write effective documentation can however still be drawn, oftentimes from best practices in the much wider world of Open Source software.
+Even with such a lax structure, some guidelines on how to write effective documentation can still be drawn, oftentimes from best practices in the much wider world of Open Source software.
 
 We have already highlighted the fundamental role of the `README` file and its very wide adoption.
 The `README` file contains high-level information about the project.
@@ -269,36 +274,43 @@ Additionally, together with the commit history, `CHANGELOG` files can be useful 
 
 A common place to store documentation is the top-level of the project repository, but some templates use the `docs` folder, also coming from guidelines used in the Python community (to use tools such as Sphinx @SphinxSphinxDocumentation).
 
+We can conclude by restating that the second principle states that documentation is essential.
+
 === 3. Be logical, obvious and predictable
 When a project layout is logical, obvious and predictable, a human user can very easily and quickly understand it and interact with it.
 
-To be *logical*, a layout should categorize files based on their content, and logically arrange them.
+We already mentioned the meanings of these words, but it is important to highlight them here.
+To be *logical*, a layout should categorize files based on their content, and logically arrange them following such categories.
 To be *obvious*, this categorization should make sense at a glance, even to non-experts.
 For instance, a folder named "scripts" should contain scripts (to be obvious) and only scripts (to be logical).
 A folder named "configuration" should similarly contain configuration files and configuration files only.
 To be *predictable*, a layout should adhere to community standards, so that it "looks" similar to other projects.
-
 This creates minimal friction when a user first encounters the project and desires to interact with it.
 
 This principle is present also in other aspects of project structure other than layout.
 For instance, the structure of documentation can also benefit from the same principles, but in a different context: logically arranged, obvious in structure, and similar to other projects.
+
+We can summarise this third principle like this: Be logical, obvious and predictable.
 
 === 4. Promote (easy) reproducibility
 Scientific Reproducibility has been and still is a central issue, particularly in the field of biomedical research @erringtonChallengesAssessingReplicability2021 @ioannidisWhyMostPublished2005a.
 Scientific software developers hold the crucial responsibility towards the scientific community of creating reproducible data analysis software.
 
 "Reproducibility" can be understood as the ability of a third-party user to understand the research issue investigated by the project, how it was addressed, and practically execute the analysis proper again to obtain a hopefully similar and ideally identical result as the original author(s).
+This has twofold benefits: a reproducible analysis evokes more confidence in those that read and review it, and it makes it much easier to repurpose to analise similar data in the future.
 
 In the modern era, scientists are equipped with powerful tools to enable reproducibility, such as containerization, virtualization, etc.
-While a discussion on how reproducibility can be achieved eludes the scope of this article, the project layout can be a promoter of reproducibility, especially when all other principles exposed here are respected.
-
-Including obvious and easily implementable reproducibility methods right in the layout of the project can be helpful towards increasing adoption of these practices.
+While a discussion on how reproducibility can be achieved eludes the scope of this article, the project layout can promote it, especially when all other principles exposed here are respected.
+This incresed adoption can be promoted by including obvious and easily implementable reproducibility methods right in the layout of the project.
 
 Workflow managers, like Nextflow @ditommasoNextflowEnablesReproducible2017, Snakemake @molderSustainableDataAnalysis2021 and the Common Workflow Language @crusoeMethodsIncludedStandardizing2022 are key tools to enable reproducibility.
 They allow a researcher to describe in detail the workflow used, from input files to final output, offloading the burden of execution to the workflow manager.
 This allows greater transparency in the methodology used, and even make reproducibility a possibility in more complex data analysis scenarios.
+Additionally, some workflow managers are structured to promote reusability of the analysis code, even on different architectures or in high performance computing environments @crusoeMethodsIncludedStandardizing2022.
 
-Some workflow managers even allow the tracking and storage of provenance information, allowing even more advanced attribution, accountability and reproducibility.
+Some workflow managers even allow the tracking and storage of provenance information, allowing even more advanced attribution, accountability and reproducibility of the analysis.
+
+We can conclude this section by stating the fourth and last principle: Be (easily) reproducible.
 
 == Kerblam!
 We have designed a very simple but powerful and flexible project layout together with a project management tool aiming at upholding the principles outlined in the previous section.
@@ -324,9 +336,9 @@ We named this tool "Kerblam!".
 )
 
 Kerblam! is a command-line tool written in Rust that incentivizes researchers to use a common, standardized filesystem structure, adopt containerization technologies to perform data analysis, leverage remote file storage when possible, and package and make container images publicly available to re-run pipelines for reproducibility purposes (see @fig:kerblam:flow).
-These aims try to uphold and promote the principles described above.
+These aims try to allow and promote the principles described above.
 
-The skeleton of the project layout implemented by Kerblam! can be seen in @fig:kerblam:layout.
+The most basic skeleton of the project layout implemented by Kerblam! can be seen in @fig:kerblam:layout.
 The `kerblam.toml` file contains configuration information for Kerblam! and marks the folder as a Kerblam-managed project.
 Kerblam! provides a number of utility features _out of the box_ on projects that adapt to the layout presented in @fig:kerblam:layout or on any project provided proper configuration.
 
@@ -341,28 +353,32 @@ All other data files are "fragile", as they can be deleted without repercussion 
 
 These distinctions between data types enable further functions of Kerblam!.
 `kerblam data` shows the number and size of files of all types, to quickly check how much disk space is being used by the project.
-Fragile data can be deleted to save disk space with `kerblam data clean` and precious input data can be exported easily with `kerblam data pack`. `kerblam data pack` can also be used to export output data quickly to, for example, colleagues.
+Fragile data can be deleted to save disk space with `kerblam data clean` and precious input data can be exported easily with `kerblam data pack`. `kerblam data pack` can also be used to export output data quickly to be shared with, for example, colleagues.
 
-Allowing Kerblam! to manage the project's data can offload several chores usually done manually by the experimenter.
+Allowing Kerblam! to manage the project's data with these tools can offload several chores usually done manually by the experimenter.
 
 === Workflow management
 Kerblam! can manage multiple workflows written for any workflow manager.
 At its core, Kerblam! can spawn shell subprocesses that then execute the particular workflow manager, potentially one configured by the user.
-However, Kerblam! works before and after the workflow manager to aid in several tasks.
+This allows Kerblam! to manage _other_ workflow managers, making them transparent to the user.
 
+Kerblam! also can act before and after the workflow manager proper to aid in several tasks.
 Firstly, Kerblam! can manage workflows in the `src/workflows` folder *as if* they were written in the root of the project.
 It achieves this by moving the workflow files from said folder to the root of the repository _just before_ execution.
+This allows for slimmer workflows which do not crowd the root of the repository or conflict with each other, thus being more consistent.
 
 Secondly, it allows the concept of _input data profiles_.
 Data profiles are best explained through an example.
 Imagine an input file, `input.csv`, containing some data to be analysed.
-The experimenter may perhaps wish to test the workflows that they have written with a similar, but - say - smaller `test_input.csv`.
+The experimenter may wish to test the workflows that they have written with a similar, but - say - smaller `test_input.csv`.
 Kerblam! allows the hot-swapping of these files just before execution of the workflow manager trough profiles.
-By configuring them in the `kerblam.toml` file, the experimenter can execute a workflow manager (with `kerblam run`), specifying a profile.
-Kerblam! will then swap these two files just before and just after the execution of the workflow to seamlessly use exactly the same workflow but with different input data.
+By configuring them in the `kerblam.toml` file, the experimenter can execute a workflow manager (with `kerblam run`), specifying a profile:
+Kerblam! will then swap these two files just before and just after the execution of the workflow to seamlessly use exactly the same workflow but with different input data, in this case for testing purposes.
 
 Kerblam! supports _out of the box_ GNU `make` as its workflow manager of choice.
 Indeed, makefiles can directly be ran trough Kerblam! with no further configuration by the user.
+Any other workflow manager can be used by writing tiny shell wrappers with the proper invocation command.
+The range of workflow managers supported out-of-the-box by Kerblam! may increase in the future.
 
 === Containerization support
 Containers can be managed directly by Kerblam!.
@@ -378,6 +394,15 @@ This creates a preconfigured container image ready to be uploaded to a container
 The process automatically strips all unneeded project files, leading to small container images.
 
 The replay package can be inspected manually by a potential examiner, and either re-run manually or trough the convenience function `kerblam replay` which recreates the same original project layout, fetches the input container and runs the packaged workflow.
+
+=== The Kerblam! analysis flow
+Kerblam! favours a very specific methodology when analysing data, starting with an empty `git` repository.
+First, load the input data in an archive (in theory promoting FAIR-er data).
+Then, configure Kerblam! to download the input data, and write code and workflows to analyse it, potentially in isolated containers or with specific workflow management tools.
+During development, periodically clean out intermediate and output files to check if the correct execution of the analysis has become dependent on local-only state.
+Finally, package the results and pipelines into the respective environments and share them with the wider public (e.g. as a GitHub release or in an archive like Zenodo).
+
+We believe that this methodology is simple yet flexible and robust, allowing for high-quality analyses in a wide variety of scenarios.
 
 === Availability
 Kerblam! is a Free and Open Source Software, available on GitHub at #link("https://github.com/MrHedmad/kerblam")[MrHedmad/kerblam].
@@ -397,8 +422,8 @@ Through these and potentially future standardization efforts, tools such as cont
 /// -----------------------------------------------
 
 = Code and Data availability
-The raw data fetched by the analysis of project templates (e.g. list of fetched repositories, detected frequencies, etc...) are available on Zenodo at the following DOI #todo[gimme gimme gimme a link after midnight!].
-Kerblam! replay packages for the analysis pipeline are available on Zenodo at the following DOI #todo[won't somebody help me come and dig up a link?].
+The raw data fetched by the analysis of project templates (e.g. list of fetched repositories, detected frequencies, etc...) are available on Zenodo at the following DOI #link("https://doi.org/10.5281/zenodo.13627214").
+The code for the analysis is available on GitHub at #link("https://github.com/MrHedmad/ds_project_structure")[MrHedmad/ds_project_structure] and is archived on Zenodo with DOI #link("https://zenodo.org/doi/10.5281/zenodo.13627322")[10.5281/zenodo.13627322].
 
 Kerblam! is available on GitHub at #link("https://github.com/MrHedmad/kerblam") and archived at every release in Zenodo at DOI #link("https://zenodo.org/doi/10.5281/zenodo.10664806").
 Its documentation is available at #link("https://kerblam.dev/").
@@ -408,13 +433,14 @@ Conceptualization: L.V., L.M. and F.A.R., Software: L.V., Methodology: L.V. and 
 
 /// -----------------------------------------------
 
+/*
 #pagebreak(weak: true)
 #set heading(numbering: "A.1", supplement: "Appendix")
 #counter(heading).update(0)
 = Full path frequency table
 <ax:freq_table>
 #todo[Include here the full table (as a link maybe) to the `result.csv` file of the analysis.]
-
+*/
 
 #pagebreak()
 #bibliography("resources/refs.bib", style: "resources/nature-no-superscript-square.csl")
