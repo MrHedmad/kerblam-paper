@@ -110,7 +110,7 @@ Support for Windows machines is untested at the time of writing.
 = Results
 == The landscape of data analysis project templates
 
-// I don't know if it is accepted in typography the practice of inserting a single subsection...
+// I don't know if it is accepted in typography the practice of inserting a single subsection... sounds weird to me.
 
 The choice of how to structure projects is an issue universally shared by anyone who performs data analysis.
 This results in a plethora of different tools, folder hierarchies, accepted practices, and customs.
