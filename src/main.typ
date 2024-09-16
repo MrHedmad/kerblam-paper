@@ -90,7 +90,7 @@ For each downloaded project, we either cut it with the `cookiecutter` Python pac
 Of these $100$ repositories, $87$ could ultimately be successfully cut and parsed, and were therefore considered.
 All files and folders from the resulting projects were finally listed and then compiled into a frequency graph.
 
-// Why they are 100 in total? How many searches we performed? Two? But the keywords are four...
+// Why they are 100 in total? How many searches we performed? Two? But the keywords are four... please clarify.
 
 Some housekeeping files (like the `.git` directory and all its content) were stripped from the final search results as they were deemed not relevant to the project as a whole.
 For example, `.gitkeep` files---which are commonly used to commit empty directories to version control---were excluded from the final figure. Finally, files present in strictly less than three templates were also discarded.
