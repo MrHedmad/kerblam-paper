@@ -66,13 +66,12 @@ In this article, we will use the phrase “data analysis project structure” to
 Unfortunately, such structures can vary a lot from one researcher to another, making it hard for the public to inspect and understand them.
 
 With the Open Science movement gaining more and more traction in the recent years @bertramOpenScience2023, there is a growing need to standardize how routine data analysis projects are structured and carried out.
-Indeed, by making data analyses more transparent and intelligible, the standardization of project structure complies with the FAIR principles' call for more Findable, Accessible, Interoperable, and Reusable data @wilkinsonFAIRGuidingPrinciples2016.
-
 Notably, even if originally thought to provide guidelines for the management of data, FAIR principles have recently been extended also to other contexts, such as that of software @barkerIntroducingFAIRPrinciples2022.
 Consistently, efforts are being made from many parts to make reproducible pipelines easier to be created and executed by the wider public---for example by leveraging methods such as containerization.
 However, while new tools and technologies offer unprecedented opportunities to make the whole process of data analysis increasingly transparent and reproducible, their usage still takes time and effort, as well as expertise and sensibility to the issue of standardization and reproducibility by the experimenter.
+By making data analyses more transparent and intelligible, the standardization of project structure complies with the FAIR principles' call for more Findable, Accessible, Interoperable, and Reusable research objects @wilkinsonFAIRGuidingPrinciples2016.
 
-In this work, we inspect the structure of many data science / data analysis project templates currently available online.
+In this work, we inspect the structure of many data science and data analysis project templates currently available online.
 Then, we outline best practices and considerations to take into account when thinking about structuring data analysis projects.
 Following these principles, we propose a simple, lightweight and extensible project structure that fits many needs and is in line with the projects already present in the ecosystem, thus providing a certain level of standardization.
 Finally, we present Kerblam!, a new tool that can be used to work in projects with this standard structure, taking care of common tasks like data retrieval and cleanup, as well as workflow management and containerization support.
@@ -80,10 +79,8 @@ This could ultimately benefit the scientific community by making others' work ea
 
 = Materials and Methods
 == Structure of common project templates
-To fetch the structure of common data analysis projects, we searched GitHub for the keywords _cookiecutter_ and _data_, as well as the much more generic keywords _project_ and _template_.
+To fetch the structure of common data analysis projects, we ran two GitHub searches, one for the keywords _cookiecutter_ and _data_, and the other for the much more generic keywords _project_ and _template_.
 The Python `cookiecutter` package allows users to create ("cut") new projects based on project templates.
-
-// I know everything is in 'Code and Data availability' section, but shouldn't we mention here too the 'ds_project_structure' repo as the method we "searched GitHub"...?
 
 We downloaded the top 50 such repositories from each search sorted by GitHub stars, as a proxy for popularity and adoption rate.
 For each downloaded project, we either cut it with the `cookiecutter` Python package or used it as-is (for non-cookiecutter templates).
@@ -93,13 +90,15 @@ All files and folders from the resulting projects were finally listed and then c
 // Why they are 100 in total? How many searches we performed? Two? But the keywords are four... please clarify.
 
 Some housekeeping files (like the `.git` directory and all its content) were stripped from the final search results as they were deemed not relevant to the project as a whole.
-For example, `.gitkeep` files---which are commonly used to commit empty directories to version control---were excluded from the final figure. Finally, files present in strictly less than three templates were also discarded.
+For example, `.gitkeep` files---which are commonly used to commit empty directories to version control---were excluded from the final figure. Finally, only files present in at least three or more templates were retained for plotting.
 
 The analysis was performed with the latest commits of all the considered repositories as of the 12th of July, 2024.
 The only exception was the "drivendataorg/cookiecutter-data-science" repository, for which we fetched version `1.0` due to non-standard parsing requirements of the latest commit.
 
+The code for the analysis is available online. See the "Code and Data availability" section for more information.
+
 == Kerblam!
-Kerblam! is a command line tool available on GitHub at #link("https://github.com/MrHedmad/kerblam")[MrHedmad/kerblam], online at #link("https://kerblam.dev/")[kerblam.dev], and on Zenodo for long-term availability at #link("https://doi.org/10.5281/zenodo.10664806")[10.5281/zenodo.10664806].
+Kerblam! is a command line tool available on GitHub at #link("https://github.com/MrHedmad/kerblam")[MrHedmad/kerblam], online at #link("https://kerblam.dev/")[kerblam.dev], and on Zenodo for long-term archival at #link("https://doi.org/10.5281/zenodo.10664806")[10.5281/zenodo.10664806].
 
 Kerblam! is written in Rust and may be compiled to support both GNU/Linux-flavoured operating systems and Mac-OS.
 Alternatively, GitHub releases provide pre-compiled artifacts for both these operating systems.
@@ -108,21 +107,15 @@ Support for Windows machines is untested at the time of writing.
 #pagebreak(weak: true)
 
 = Results
-== The landscape of data analysis project templates
-
-// I don't know if it is accepted in typography the practice of inserting a single subsection... sounds weird to me.
-
 The choice of how to structure projects is an issue universally shared by anyone who performs data analysis.
 This results in a plethora of different tools, folder hierarchies, accepted practices, and customs.
 To explore the most common project-structuring practices, we inspected $87$ different project templates available on GitHub and produced a frequency graph of shared files and folders visible in @fig:frequency_graph.
 
 #figure(
   image("resources/images/plot.png"),
-  caption: [Frequency graph of the structure of the 87 most starred data analysis project templates, as retrieved from GitHub. Files present in less than three templates were ignored. The size and color intensity of the circle at the tip of each link is proportional to the frequency with which this file or folder is found in different project templates. Red text represents files, while blue text represents folders. The central dot of the root node was assigned an arbitrary size.],
+  caption: [Frequency graph of the structure of the 87 most starred data analysis project templates, as retrieved from GitHub. Only files present in at least three or more templates are shown. The size and color intensity of the circle at the tip of each link is proportional to the frequency with which this file or folder is found in different project templates. Red text represents files, while blue text represents folders. The central dot of the root node was assigned an arbitrary size.],
   placement: top
 ) <fig:frequency_graph>
-
-// 'less than two' or 'less than three' ??
 
 By looking at this figure, we can point out common patterns in project structure.
 It must be highlighted, however, that templates influence each other.
@@ -155,9 +148,6 @@ Out of $4195$ different files and directories considered by this approach, the v
 Looking at directories only, $783$ are unique over $864$ total ($90.62%$).
 This figure might be inflated due to the presence of some compiled libraries, files, and Git objects that are included in the analysis and not correctly removed by our filtering.
 However, we argue that this overwhelmingly high uniqueness would not be significantly affected by manual filtering.
-
-// Are we coming in too strong?
-// never enough...
 
 /*
 == Relevant project templates
@@ -277,6 +267,9 @@ This creates minimal friction when a user first encounters the project and desir
 This principle is present also in other aspects of project structure other than layout.
 For instance, the structure of documentation can also benefit from the same principles, but in a different context: logically arranged, obvious in structure, and similar to other projects.
 
+This might be the most difficult principle to follow, as it largely depends on the community as a whole.
+For this reason, we hope that the analysis shown above, especially @fig:frequency_graph, and our proposed minimal structure (presented in the next sections) will be useful as guides to widely implement this principle.
+
 We can summarise this third principle like this: be logical, obvious and predictable.
 
 === 4. Promote (easy) reproducibility
@@ -370,9 +363,11 @@ The range of workflow managers supported out-of-the-box by Kerblam! may increase
 === Containerization support
 Containers can be managed directly by Kerblam!.
 By writing container recipes in `src/dockerfiles`, Kerblam! can automatically execute workflow managers inside the containers, seamlessly mounting data paths and performing other housekeeping tasks before running the container.
-This allows for very easy containerization of workflow managers that do not support it themselves, or even containerization of shell scripts, be they used for writing the workflow proper.
-
-// Not sure about the meaning... Rephrase.
+As already stated, Kerblam! works "above" workflow managers.
+Therefore, the reader might be questioning the usefulness of a containerization wrapper at the level of Kerblam! if the workflow manager of choice already supports it.
+This containerization feature is meant to be used when a workflow manager would be inappropriate.
+For instance, very small analyses might not warrant the increased development overhead to use tools such as CWL.
+Kerblam! allows even shell scripts to be containerized anyway, making even the tinyest analyses reproducible.
 
 With these capabilities, Kerblam! promotes reproducibility and allows even inexperienced users to perform even the simplest analyses in a reproducible way.
 
