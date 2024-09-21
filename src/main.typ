@@ -120,7 +120,7 @@ The `project` folder at the top level of the templates is most likely the Python
 The presence of files related to the R programming language (the `R` directory, `.Rbuildignore`, `README.Rmd`) reflect its usage in the data analysis field, although at a lower frequency than that of Python.
 The relatively low prevalence of the R programming language could be due to biases introduced by the search queries, or to the overwhelming popularity of Python project templates, also in the light of the fact that the cookiecutter utility itself is written in Python.
 
-Community-relevant files such as the `CONTRIBUTING.md` ($8/87 tilde.eq 0.09$) and `CODE_OF_CONDUCT.md` ($ 5/87 tilde.eq 0.06$) show little prevalence in templates.
+Community-relevant files such as `CONTRIBUTING.md` ($8/87 tilde.eq 0.09$) and `CODE_OF_CONDUCT.md` ($ 5/87 tilde.eq 0.06$) show little prevalence in templates.
 This is also true for the `CITATION.cff` ($4/87 tilde.eq 0.05$) file, useful for machine-readable citation data.
 
 The `src` ($31/87 tilde.eq 0.36$), `data` ($35/87 tilde.eq 0.40$), and `docs` ($28/87 tilde.eq 0.32$) folders are very highly represented, containing code, data, and project documentation, respectively.
@@ -171,10 +171,10 @@ However, a researcher might not want to create self-contained, distributed softw
 Languages like Python and R can interpret and execute single-file scripts which achieve some goal (i.e., "scripting").
 As scripting is so fast, convenient, and easy to do, it is the most common method of doing data analysis.
 Scripting provides much flexibility during the development process, but this typically exacerbates the fragmentation of project structures.
-In particular, the environment of execution now becomes much more relevant: which packages are installed and at which versions, the order that the scripts were read and executed, sometimes, even the order of _which lines_ in the scripts are (manually) run become important to the success of the overall analysis.
+In particular, the environment of execution now becomes much more relevant: which packages are installed and at which versions, the order that the scripts were read and executed and, potentially, even the order of _which lines_ are (manually) run become important to the success of the overall analysis.
 
-This increased flexibility is obviously useful for the research process, which requires the ability to change quickly in order to adapt to new findings, especially during exploratory research.
-The principles presented here aim to retain this essential feature, but, at the same time, push for increased standardization of methods, avoiding the most common and dangerous pitfalls one can encounter during the process of data analysis.
+This increased flexibility is obviously useful for the research process, which requires the ability to change quickly in order to adapt to new findings, especially during hypothesis-generating "exploratory" research.
+The principles presented here aim to retain this essential requirement of adaptability, but, at the same time, push for increased standardization of methods, avoiding the most common and dangerous pitfalls one can encounter during the process of data analysis.
 
 === 1. Use a version control system
 At its core, software is a collection of text files, and this includes data analysis software.
@@ -189,10 +189,10 @@ Platforms that integrate `git` such as GitHub (#link("https://github.com")[githu
 The first principle should therefore be this: *use a version control system*, such as `git`.
 
 A few practical observations stem from this principle:
-- version control encourages good practices, such as atomic commits, meaningful commit messages, and more;
-- version control discourages the upload of very large (binary) files, so input and output data cannot be efficiently shared through such a system;
-- code collaboration and collaboration techniques (such as "GitHub Flow" or "trunk based development" @appletonStreamedLinesBranching1998 @GitHubFlow) can be useful to promote a more efficient workflow method in data analysis disciplines such as bioinformatics;
-- the core unit of a project should be a code repository, containing everything related to that project.
+- version control encourages good development practices, such as atomic commits, meaningful commit messages, and more, reducing the amount of mistakes made while programming and increasing efficiency by making debugging easier;
+- version control discourages the upload of very large (binary) files, so input and output data cannot be efficiently shared through such a system, incentivizing the deposit of data in online archives and - by extension - favouring the FAIRness of the manipulated data objects;
+- code collaboration and collaboration techniques (such as "GitHub Flow" or "trunk based development" @appletonStreamedLinesBranching1998 @GitHubFlow) can be useful to promote a more efficient development workflow in data analysis disciplines such as bioinformatics, especially in mid- to large- research groups;
+- the core unit of a project should be a code repository, containing everything related to that project - from code, to documentation, to configuration.
 
 The usage of a version control system has implications also for FAIR-ness.
 Leveraging remote platforms can be fundamental for both Findability and Accessibility.
@@ -204,7 +204,7 @@ Through ideal documentation, the rationale, the process, and potentially the res
 As with all other aspects of data analysis, documentation takes many different forms, but is the most difficult thing to standardize for one simple reason: documentation is written by humans for human consumption.
 Documentation is therefore allowed high flexibility in structure, content, form, and delivery method.
 
-Even with such a lax structure, some guidelines on how to write effective documentation can still be drawn, oftentimes from best practices in the much wider world of Open Source software.
+Even though rigid standardization is impossible, some guidelines on how to write effective documentation can still be drawn, oftentimes from best practices in the much wider world of Open Source software.
 We have already highlighted the fundamental role of the `README` file and its very wide adoption.
 This file contains high-level information about the project and is usually the first---and perhaps only---documentation that all users encounter and read.
 It is therefore essential that core aspects of the project are delivered trough the `README` file, such as:
@@ -241,7 +241,7 @@ This principle is present also in other aspects of project structure other than 
 For instance, the structure of documentation can also benefit from the same principles, but in a different context: logically arranged, obvious in structure, and similar to other projects.
 
 This might be the most difficult principle to follow, as it largely depends on the community as a whole.
-For this reason, we hope that the analysis shown above, especially @fig:frequency_graph, and our proposed minimal structure (presented in the next sections) will be useful as guides to widely implement this principle.
+For this reason, we hope that the analysis shown above, especially @fig:frequency_graph, and our proposed minimal structure (presented in the next sections) will be useful as guides to effectively implement this principle.
 
 We can summarize this third principle like this: *be logical, obvious and predictable*.
 
@@ -253,7 +253,7 @@ Scientific software developers hold the crucial responsibility towards the scien
 This has twofold benefits: a reproducible analysis evokes more confidence in those that read and review it, and it makes it much easier to repurpose the analysis to similar data in the future.
 
 In the modern era, scientists are equipped with powerful tools to enable reproducibility, such as containerization, virtualization, etc.
-While a discussion on how reproducibility can be achieved eludes the scope of this article, the project layout can promote it, especially when all other principles exposed here are respected.
+While a discussion on how reproducibility can be achieved eludes the scope of this article, the project layout can promote it, especially when all other principles presented here are respected.
 This increased adoption can be promoted by including obvious and easily implementable reproducibility methods right in the layout of the project.
 
 Workflow managers, like Nextflow @ditommasoNextflowEnablesReproducible2017, Snakemake @molderSustainableDataAnalysis2021, and the Common Workflow Language (CWL) @crusoeMethodsIncludedStandardizing2022 are key tools to enable reproducibility.
@@ -283,7 +283,7 @@ We named this tool "Kerblam!".
   label: <fig:kerblam>
 )
 
-Kerblam! is a command-line tool written in Rust that incentivizes researchers to use a common, standardized filesystem structure, adopt containerization technologies to perform data analysis, leverage remote file storage when possible, package and make container images publicly available to re-run pipelines for reproducibility purposes (see @fig:kerblam:flow).
+Kerblam! is a command-line tool written in Rust that incentivizes researchers to use a common, standardized filesystem structure, adopt containerization technologies to perform data analysis, leverage remote file storage when possible, and create and publish readily executable container images to the public to re-run pipelines for reproducibility purposes (see @fig:kerblam:flow).
 These aims try to allow and promote the principles described above.
 
 The most basic skeleton of the project layout implemented by Kerblam! can be seen in @fig:kerblam:layout.
@@ -311,7 +311,7 @@ Allowing Kerblam! to manage the project's data with these tools can offload seve
 === Workflow management
 Kerblam! can manage multiple workflows written for any workflow manager.
 At its core, Kerblam! can spawn shell subprocesses that then execute the particular workflow manager, potentially one configured by the user.
-This allows Kerblam! to manage _other_ workflow managers, making them transparent to the user.
+This allows Kerblam! to manage _other_ workflow managers, making them transparent to the user and with a single access point.
 
 Kerblam! also can act before and after the workflow manager proper to aid in several tasks.
 Firstly, Kerblam! can manage workflows in the `src/workflows` folder _as if_ they were written in the root of the project.
