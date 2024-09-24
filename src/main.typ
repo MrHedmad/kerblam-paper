@@ -190,9 +190,9 @@ The first principle should therefore be this: *use a version control system*, su
 
 A few practical observations stem from this principle:
 - version control encourages good development practices, such as atomic commits, meaningful commit messages, and more, reducing the amount of mistakes made while programming and increasing efficiency by making debugging easier;
-- version control discourages the upload of very large (binary) files, so input and output data cannot be efficiently shared through such a system, incentivizing the deposit of data in online archives and - by extension - favouring the FAIRness of the manipulated data objects;
+- version control discourages the upload of very large (binary) files, so input and output data cannot be efficiently shared through such a system, incentivizing the deposit of data in online archives and---by extension---favoring the FAIR-ness of the manipulated data objects;
 - code collaboration and collaboration techniques (such as "GitHub Flow" or "trunk based development" @appletonStreamedLinesBranching1998 @GitHubFlow) can be useful to promote a more efficient development workflow in data analysis disciplines such as bioinformatics, especially in mid- to large- research groups;
-- the core unit of a project should be a code repository, containing everything related to that project - from code, to documentation, to configuration.
+- the core unit of a project should be a code repository, containing everything related to that project---from code, to documentation, to configuration.
 
 The usage of a version control system has implications also for FAIR-ness.
 Leveraging remote platforms can be fundamental for both Findability and Accessibility.
@@ -207,11 +207,11 @@ Documentation is therefore allowed high flexibility in structure, content, form,
 Even though rigid standardization is impossible, some guidelines on how to write effective documentation can still be drawn, oftentimes from best practices in the much wider world of Open Source software.
 We have already highlighted the fundamental role of the `README` file and its very wide adoption.
 This file contains high-level information about the project and is usually the first---and perhaps only---documentation that all users encounter and read.
-It is therefore essential that core aspects of the project are delivered trough the `README` file, such as:
+It is therefore essential that core aspects of the project are delivered through the `README` file, such as:
 - the aim of the project, in clear, accessible language;
 - the methods used to achieve such aim (and/or a link to further reading material);
 - a guide on how to run the analysis on the user's machine, potentially including information on hardware requirements, software requirements, container deployment methods, and every information a human reproducer might need to execute the analysis;
-- in a Open Science mindset, including information on how to collaborate on the project and contact information of the authors is also desirable.
+- in an Open Science mindset, including information on how to collaborate on the project and contact information of the authors is also desirable.
 Other aspects of the project, such as a list of contributors, might also be included in the `README` file.
 The `README` file may also be named `DESCRIPTION`, although `README` is a much more widely accepted standard.
 
@@ -228,7 +228,7 @@ A common place to store documentation is the top-level of the project repository
 
 We can conclude by reiterating that the second principle states that *documentation is essential*.
 
-=== 3. Be logical, obvious and predictable
+=== 3. Be logical, obvious, and predictable
 When a project layout is logical, obvious, and predictable, a human user can easily and quickly understand and interact with it.
 
 To be _logical_, a layout should categorize files based on their content, and logically arrange them following such categories.
@@ -243,7 +243,7 @@ For instance, the structure of documentation can also benefit from the same prin
 This might be the most difficult principle to follow, as it largely depends on the community as a whole.
 For this reason, we hope that the analysis shown above, especially @fig:frequency_graph, and our proposed minimal structure (presented in the next sections) will be useful as guides to effectively implement this principle.
 
-We can summarize this third principle like this: *be logical, obvious and predictable*.
+We can summarize this third principle like this: *be logical, obvious, and predictable*.
 
 === 4. Promote (easy) reproducibility
 Scientific Reproducibility has been and still is a central issue, particularly in the field of biomedical research @erringtonChallengesAssessingReplicability2021 @ioannidisWhyMostPublished2005a.
@@ -278,7 +278,7 @@ We named this tool "Kerblam!".
   v(3mm)
   },
   caption: [Salient concepts implemented by Kerblam!
-    (a): Basic skeleton of the proposed folder layout for a generic data analysis project associated with relevant Kerblam! commands. Folders are depicted in blue, while files are depicted in red. (b): Data is qualitatively divided into input, output, and temporary data. Input data can be further divided in input data remotely available (i.e., downloadable) and local-only data. The latter is "precious", as it cannot be easily recreated. Other types of data are "fragile", as they may be created again _on the fly_. (c): Overview of a generic Kerblam! workflow.
+    (a): Basic skeleton of the proposed folder layout for a generic data analysis project associated with relevant Kerblam! commands. Folders are depicted in blue, while files are depicted in red. (b): Data is qualitatively divided into input, output, and temporary data. Input data can be further divided into input data remotely available (i.e., downloadable) and local-only data. The latter is "precious", as it cannot be easily recreated. Other types of data are "fragile", as they may be created again _on the fly_. (c): Overview of a generic Kerblam! workflow.
   ],
   label: <fig:kerblam>
 )
@@ -292,8 +292,7 @@ Kerblam! provides a number of utility features _out of the box_ on projects that
 
 === Data management
 Kerblam! can be used to manage a project's data.
-Kerblam! automatically distinguishes between input, output, and intermediate data, based on which folder the data files are saved in:
-the `data` folder contains intermediate data produced during the execution of the workflows, the `data/in` contains input data, and similarly `data/out` contains output data.
+Kerblam! automatically distinguishes between input, output, and intermediate data, based on which folder the data files are saved in: the `data` folder contains intermediate data produced during the execution of the workflows, the `data/in` contains input data, and similarly `data/out` contains output data.
 Furthermore, the user can define in the `kerblam.toml` configuration which input data files can be fetched remotely, and from which endpoint.
 This allows Kerblam! to both fetch these files upon request (`kerblam fetch`) and to distinguish between remotely available input files and local-only files.
 Local-only files are deemed "precious", as they cannot be easily recreated.
@@ -322,12 +321,12 @@ Secondly, it allows the concept of _input data profiles_.
 Data profiles are best explained through an example.
 Imagine an input file, `input.csv`, containing some data to be analyzed.
 The experimenter may wish to test the workflows that they have written with a similar, but---say---smaller `test_input.csv`.
-Kerblam! allows the hot-swapping of these files just before execution of the workflow manager trough profiles.
+Kerblam! allows the hot-swapping of these files just before execution of the workflow manager through profiles.
 By configuring them in the `kerblam.toml` file, the experimenter can execute a workflow manager (with `kerblam run`), specifying a profile:
 Kerblam! will then swap these two files just before and just after the execution of the workflow to seamlessly use exactly the same workflow but with different input data, in this case for testing purposes.
 
 Kerblam! supports _out of the box_ GNU `make` as its workflow manager of choice.
-Indeed, makefiles can directly be ran trough Kerblam! with no further configuration by the user.
+Indeed, makefiles can directly be ran through Kerblam! with no further configuration by the user.
 Any other workflow manager can be used by writing tiny shell wrappers with the proper invocation command.
 The range of workflow managers supported out-of-the-box by Kerblam! may increase in the future.
 
@@ -348,7 +347,7 @@ This creates a preconfigured container image ready to be uploaded to a container
 
 The process automatically strips all unneeded project files, leading to small container images.
 
-The replay package can be inspected manually by a potential examiner, and either re-run manually or trough the convenience function `kerblam replay` which recreates the same original project layout, fetches the input container and runs the packaged workflow.
+The replay package can be inspected manually by a potential examiner, and either re-run manually or through the convenience function `kerblam replay` which recreates the same original project layout, fetches the input container and runs the packaged workflow.
 
 === The Kerblam! analysis flow
 Kerblam! favors a very specific methodology when analyzing data, starting with an empty `git` repository.
