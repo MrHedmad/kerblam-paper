@@ -67,7 +67,7 @@ Unfortunately, such structures can vary a lot from one researcher to another, ma
 
 With the Open Science movement gaining more and more traction in the recent years @bertramOpenScience2023, there is a growing need to standardize how routine data analysis projects are structured and carried out.
 Notably, even if originally thought to provide guidelines for the management of data, FAIR principles have recently been extended also to other contexts, such as that of software @barkerIntroducingFAIRPrinciples2022.
-In this view, by making data analyses more transparent and intelligible, the standardization of project structure complies with the FAIR principles' call for more Findable, Accessible, Interoperable, and Reusable research objects @wilkinsonFAIRGuidingPrinciples2016.
+In this view, by making data analyses more transparent and intelligible, the standardization of project structure complies with the FAIR principles' philosophy of more Findable, Accessible, Interoperable, and Reusable research objects @wilkinsonFAIRGuidingPrinciples2016.
 Consistently, efforts are being made from many parts to make reproducible pipelines easier to be created and executed by the wider public---for example by leveraging methods such as containerization.
 However, while new tools and technologies offer unprecedented opportunities to make the whole process of data analysis increasingly transparent and reproducible, their usage still takes time and effort, as well as expertise and sensibility to the issue of standardization and reproducibility by the experimenter.
 
