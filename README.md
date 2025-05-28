@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repo is outdated. Read the paper here: https://doi.org/10.12688/f1000research.157325.2
+
 # Kerblam paper
 
 This is the paper for [kerblam!](https://github.com/MrHedmad/kerblam).
